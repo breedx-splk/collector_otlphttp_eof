@@ -1,0 +1,16 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+exporters:
+  otlphttp:
+    traces_endpoint: "http://localhost:4399/"
+    tls:
+        insecure_skip_verify: true
+  logging/debug:
+    loglevel: debug
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [logging/debug, otlphttp]
